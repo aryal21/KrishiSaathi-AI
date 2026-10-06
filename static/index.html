@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="hi" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#2E7D32">
+  <meta name="description" content="KrishiSaathi AI - AI-powered farming assistant for Indian farmers. Crop health diagnosis, PMFBY insurance claims, low-interest KCC loans, mandi prices, and farmer wellness.">
+  <title>KrishiSaathi AI - Smart Agriculture Assistant</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/static/icons/icon.svg">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Toast Notification Center -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ==========================================================
+       PAGE 1: LANDING HERO (IMAGE 1) & SLIDE-TO-LOGIN PORTAL
+       ========================================================== -->
+  <section id="landing-view">
+    <!-- Landing Navigation -->
+    <nav class="landing-nav">
+      <div class="brand-logo">
+        <div class="brand-icon">🌾</div>
+        <span>KrishiSaathi AI</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services-preview" data-i18n="home">Home</a></li>
+        <li><a href="#services-preview">Our Process</a></li>
+        <li><a href="#services-preview">Solutions</a></li>
+        <li><a href="#testimonials-preview">Stories</a></li>
+      </ul>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <select id="landing-lang" class="lang-dropdown" aria-label="Select Language">
+          <option value="hi">हिंदी</option>
+          <option value="mr">मराठी</option>
+          <option value="en" selected>English</option>
+          <option value="pa">ਪੰਜਾਬੀ</option>
+          <option value="gu">ગુજરાતી</option>
+          <option value="ta">தமிழ்</option>
+          <option value="te">తెలుగు</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="bn">বাংলা</option>
+        </select>
+        <button id="btn-nav-login" class="btn-nav-action" data-i18n="login">Login / Sign Up</button>
+      </div>
+    </nav>
+
+    <!-- Hero Content (Matches Image 1) -->
+    <div class="hero-content">
+      <div class="hero-pill-badge">
+        <span>●</span> <span data-i18n="hero_badge">FRESH FARMING TOWARD STEADY GROWTH</span>
+      </div>
+      <h1 class="hero-title" data-i18n="hero_title">KrishiSaathi AI</h1>
+      <p class="hero-subtitle" data-i18n="hero_desc">
+        Promoting fresh farming practices that ensure steady growth, sustainability, and lasting prosperity. AI-driven crop diagnostics, fair mandi prices, zero-rejection PMFBY claims, low-interest credit, and farmer wellness.
+      </p>
+
+      <div class="cta-group">
+        <button id="btn-get-started" class="btn-get-started">
+          <span data-i18n="get_started">GET STARTED</span>
+          <div class="btn-arrow-circle">➔</div>
+        </button>
+
+        <div class="social-proof">
+          <div class="avatar-stack">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=100&h=100&q=80" alt="Farmer">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" alt="Farmer">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80" alt="Farmer">
+          </div>
+          <div class="proof-text">
+            <div class="proof-count" data-i18n="farms_supported">50K+ Farms supported</div>
+            <div class="proof-sub">Across 9 States · 98% Accuracy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Feature Bar (Matches Image 1) -->
+    <div class="hero-bottom-bar">
+      <div class="teaser-item">
+        <div class="teaser-icon">👤</div>
+        <div>
+          <div class="teaser-title" data-i18n="market_access">Market Access Support</div>
+          <div class="teaser-desc" data-i18n="market_access_sub">Helping farmers reach wider buyers & best mandi rates.</div>
+        </div>
+      </div>
+      <div class="teaser-item">
+        <div class="teaser-icon">🕒</div>
+        <div>
+          <div class="teaser-title" data-i18n="realtime_analysis">Real-Time Analysis</div>
+          <div class="teaser-desc" data-i18n="realtime_analysis_sub">Instant crop health diagnostic & satellite weather boost.</div>
+        </div>
+      </div>
+      <div class="teaser-item">
+        <div class="teaser-icon">🌳</div>
+        <div>
+          <div class="teaser-title" data-i18n="agri_supply">Agri-Supply Solutions</div>
+          <div class="teaser-desc" data-i18n="agri_supply_sub">Authentic seeds, certified inputs & verified dealers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide-To-Login Authentication Portal (Same Cinematic Background) -->
+    <div id="auth-slide-portal" style="display:none;">
+      <div class="portal-header">
+        <button id="btn-back-to-hero" class="btn-back-hero">↑ <span data-i18n="home">Back to Overview</span></button>
+        <h2 data-i18n="login">Access Your Farmer Portal</h2>
+        <p data-i18n="note">Free Forever · Zero Ads · Works on Low Bandwidth</p>
+      </div>
+
+      <div class="auth-dual-grid">
+        <!-- Left: Login Card -->
+        <div class="auth-card-glass">
+          <div class="auth-card-title">
+            <span>🔐</span> <h3 data-i18n="login">Login to Your Account</h3>
+          </div>
+          <form id="fl">
+            <div class="form-group">
+              <label data-i18n="mobile">Phone Number (+91)</label>
+              <input name="mobile" class="form-input" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" placeholder="e.g. 9876543210" autocomplete="username">
+            </div>
+            <div class="form-group">
+              <label data-i18n="pin">Password / PIN (4-6 digits)</label>
+              <input name="pin" class="form-input" type="password" required inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" placeholder="Enter PIN" autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-auth-primary">
+              <span>🚀</span> <span data-i18n="login">Login to Dashboard</span>
+            </button>
+          </form>
+
+          <!-- 1-Click Demo Account Box -->
+          <div class="demo-box">
+            <p><b>ℹ️ Demo Account (1-Click Test):</b></p>
+            <p style="font-size:0.8rem; margin-bottom:10px;">Phone: <b>9876543210</b> | PIN: <b>1234</b> (Farmer: Ramesh Patil)</p>
+            <button id="btn-fill-demo" class="btn-demo-quick">⚡ Quick Fill Demo & Login</button>
+          </div>
+        </div>
+
+        <!-- Right: Signup Card -->
+        <div class="auth-card-glass">
+          <div class="auth-card-title">
+            <span>📝</span> <h3 data-i18n="signup">Create New Account (Free Forever)</h3>
+          </div>
+          <form id="fs">
+            <div class="form-group">
+              <label data-i18n="name">Full Name</label>
+              <input name="name" class="form-input" required maxlength="60" placeholder="e.g. Ramesh Patil">
+            </div>
+            <div class="form-group">
+              <label data-i18n="mobile">Phone Number</label>
+              <input name="mobile" class="form-input" required inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" placeholder="10-digit mobile number">
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="form-group">
+                <label data-i18n="village">Village / Town</label>
+                <input name="village" class="form-input" maxlength="60" placeholder="e.g. Dindori">
+              </div>
+              <div class="form-group">
+                <label data-i18n="district">District</label>
+                <select name="district" class="form-select">
+                  <option value="Nashik">Nashik</option>
+                  <option value="Pune">Pune</option>
+                  <option value="Dhule">Dhule</option>
+                  <option value="Aurangabad">Chhatrapati Sambhajinagar</option>
+                  <option value="Ahmednagar">Ahmednagar</option>
+                  <option value="Ludhiana">Ludhiana</option>
+                  <option value="Karnal">Karnal</option>
+                  <option value="Indore">Indore</option>
+                  <option value="Other">Other District</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="form-group">
+                <label data-i18n="state">State</label>
+                <select name="state" class="form-select">
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="land">Land (acres)</label>
+                <input name="land" type="number" step="0.5" min="0" max="1000" class="form-input" placeholder="e.g. 3.5">
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-i18n="pin">Create PIN (4-6 digits)</label>
+              <input name="pin" class="form-input" type="password" required inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" placeholder="4 to 6 numbers">
+            </div>
+            <button type="submit" class="btn-auth-primary">
+              <span>📝</span> <span data-i18n="signup">Create Account</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       PAGE 2: MAIN APPLICATION DASHBOARD (IMAGE 2 ECOFARM STYLE)
+       ========================================================== -->
+  <div id="main-app" style="display:none;">
+    <!-- Topbar Navigation -->
+    <header class="app-topbar">
+      <div class="app-brand">
+        <span style="font-size:1.6rem;">🌾</span>
+        <span>KrishiSaathi AI</span>
+      </div>
+
+      <div class="topbar-controls">
+        <select id="app-lang" class="lang-dropdown" aria-label="Language">
+          <option value="hi">हिंदी</option>
+          <option value="mr">मराठी</option>
+          <option value="en">English</option>
+          <option value="pa">ਪੰਜਾਬੀ</option>
+          <option value="gu">ગુજરાતી</option>
+          <option value="ta">தமிழ்</option>
+          <option value="te">తెలుగు</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="bn">বাংলা</option>
+        </select>
+        <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark">
+          <span id="theme-icon">🌙</span> <span id="theme-text" data-i18n="dark">Theme</span>
+        </button>
+        <div class="user-pill">
+          <span>👤</span> <span id="user-display-name">Farmer</span>
+        </div>
+        <button id="btn-logout" class="btn-icon" title="Logout" style="color:var(--error);">🚪 <span data-i18n="logout">Logout</span></button>
+      </div>
+    </header>
+
+    <!-- Two-Column Layout (66% Workspace / 34% AI Assistant) -->
+    <main class="dashboard-container">
+      
+      <!-- LEFT WORKSPACE (66%) -->
+      <section class="left-workspace">
+        
+        <!-- EcoFarm Style Hero Banner (Matches Image 2 Top) -->
+        <div class="ecofarm-banner">
+          <div class="banner-content">
+            <div class="banner-badge">Empowering Farmers with Smarter Agriculture</div>
+            <h2 class="banner-title" id="welcome-banner-title">Namaste Farmer!</h2>
+            <p class="banner-desc">Welcome to your AI Smart Agriculture Command Center. Detect crop diseases, maximize mandi profits, claim PMFBY without rejections, and access subsidized KCC loans.</p>
+            <div class="banner-stats-row">
+              <div class="banner-stat">
+                <b>193K+</b>
+                <span>Active Farmers</span>
+              </div>
+              <div class="banner-stat">
+                <b>98%</b>
+                <span>Diagnostic Precision</span>
+              </div>
+              <div class="banner-stat">
+                <b>2.8M</b>
+                <span>Acres Monitored</span>
+              </div>
+              <div class="banner-stat">
+                <b>₹75M+</b>
+                <span>Debt & Losses Saved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Nav Pills -->
+        <div class="quick-tabs-container" role="tablist">
+          <button class="tab-pill active" data-tab="disease">📸 <span data-i18n="disease">Disease Detection</span></button>
+          <button class="tab-pill" data-tab="insurance">🏥 <span data-i18n="insurance">PMFBY Claim</span></button>
+          <button class="tab-pill" data-tab="loan">💸 <span data-i18n="loan">Loan Optimizer</span></button>
+          <button class="tab-pill" data-tab="mandi">🏪 <span data-i18n="mandi">Mandi Prices</span></button>
+          <button class="tab-pill" data-tab="product">🌱 <span data-i18n="product">Product Verify</span></button>
+          <button class="tab-pill" data-tab="advisor">🌾 <span data-i18n="advisor">Crop Advisor</span></button>
+          <button class="tab-pill" data-tab="weather">🌦️ <span data-i18n="weather">Weather Alert</span></button>
+          <button class="tab-pill" data-tab="voice">🗣️ <span data-i18n="voice_diag">Voice Diagnosis</span></button>
+          <button class="tab-pill" data-tab="mind">😔 <span data-i18n="mind">Mind Mitra</span></button>
+          <button class="tab-pill" data-tab="profile">👤 <span data-i18n="profile">Farm Profile</span></button>
+        </div>
+
+        <!-- ================= FEATURE PANELS ================= -->
+
+        <!-- 1. 📸 CROP DISEASE DETECTION -->
+        <div id="panel-disease" class="feature-view-card">
+          <div class="feature-header">
+            <h3>📸 <span data-i18n="disease">Crop Disease Detection</span></h3>
+            <span class="badge-severity badge-low">AI Computer Vision</span>
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">
+            <b>Instructions:</b> Take a clear photo of the infected leaf in daylight. Ensure both leaf sides are visible.
+          </p>
+
+          <!-- Quick Test Sample Leaf Cards (1-Click Test) -->
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text-main); margin-top:10px;">
+            💡 Quick Demo Leaves (Click any to test instantly):
+          </div>
+          <div class="sample-grid">
+            <div class="sample-item selected" data-leaf="soybean_mosaic">🍂 Soybean (Yellow Mosaic)</div>
+            <div class="sample-item" data-leaf="cotton_curl">🍃 Cotton (Leaf Curl)</div>
+            <div class="sample-item" data-leaf="wheat_rust">🌾 Wheat (Stripe Rust)</div>
+            <div class="sample-item" data-leaf="tomato_blight">🍅 Tomato (Blight)</div>
+            <div class="sample-item" data-leaf="healthy">🌱 Healthy Crop</div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+            <label class="btn-nav-action" style="background:var(--primary); color:#fff; cursor:pointer; padding:10px 20px;">
+              📷 Upload Leaf Photo <input type="file" id="disease-file-input" accept="image/*" style="display:none;">
+            </label>
+            <button id="btn-run-diagnosis" class="btn-auth-primary" style="width:auto; padding:0 24px; min-height:44px; margin:0;">
+              🔍 Analyze Crop Health
+            </button>
+          </div>
+
+          <!-- Diagnosis Result Container -->
+          <div id="disease-result-container" class="result-card" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+              <div>
+                <h4 id="diag-disease-name" style="font-size:1.3rem; color:var(--primary-dark);">Yellow Mosaic Virus</h4>
+                <div style="font-size:0.85rem; color:var(--text-muted);">Confidence: <b id="diag-confidence">88%</b> | Severity: <span id="diag-severity" class="badge-severity badge-high">High</span></div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:0.8rem; color:var(--text-muted);">Estimated Spray Cost:</div>
+                <b id="diag-cost" style="color:var(--text-main);">₹450 - ₹550 / acre</b>
+              </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <b style="font-size:0.9rem;">Visible Symptoms:</b>
+              <ul id="diag-symptoms" style="padding-left:20px; font-size:0.88rem; margin-top:4px; color:var(--text-main);"></ul>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <b style="font-size:0.9rem; color:var(--primary-dark);">Recommended Treatment Protocol:</b>
+              <pre id="diag-treatment" style="white-space:pre-wrap; font-family:inherit; font-size:0.88rem; background:var(--surface); padding:10px; border-radius:8px; border:1px solid var(--border); margin-top:4px;"></pre>
+            </div>
+
+            <div style="margin-bottom:14px;">
+              <b style="font-size:0.9rem;">Prevention Guidelines:</b>
+              <pre id="diag-prevention" style="white-space:pre-wrap; font-family:inherit; font-size:0.85rem; color:var(--text-muted); margin-top:4px;"></pre>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button id="btn-download-disease-pdf" class="btn-nav-action" style="background:var(--accent); color:#fff; border:none;">
+                📥 Download Official ICAR PDF Report
+              </button>
+              <button id="btn-share-whatsapp" class="btn-nav-action" style="background:#25D366; color:#fff; border:none;">
+                📱 Share Treatment on WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 🏥 PMFBY INSURANCE CLAIM AUTO-FILL WIZARD -->
+        <div id="panel-insurance" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🏥 <span data-i18n="insurance">PMFBY Insurance Claim Auto-Fill</span></h3>
+            <span class="badge-severity badge-low">Zero Rejection SLA (<20%)</span>
+          </div>
+
+          <!-- 5-Step Wizard Navigation -->
+          <div class="wizard-progress">
+            <div class="wizard-step-node active" data-step="1">
+              <div class="step-circle">1</div>
+              <span>Farmer Info</span>
+            </div>
+            <div class="wizard-step-node" data-step="2">
+              <div class="step-circle">2</div>
+              <span>Crop & Land</span>
+            </div>
+            <div class="wizard-step-node" data-step="3">
+              <div class="step-circle">3</div>
+              <span>Damage Assessment</span>
+            </div>
+            <div class="wizard-step-node" data-step="4">
+              <div class="step-circle">4</div>
+              <span>Evidence</span>
+            </div>
+            <div class="wizard-step-node" data-step="5">
+              <div class="step-circle">5</div>
+              <span>Submit & Receipt</span>
+            </div>
+          </div>
+
+          <!-- Wizard Forms -->
+          <div id="pmfby-wizard-body">
+            <!-- Step 1: Farmer Details -->
+            <div class="wizard-step-panel" id="wstep-1">
+              <h4 style="margin-bottom:12px;">Step 1: Farmer & Policy Identification (Auto-Filled)</h4>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                  <label>Farmer Name</label>
+                  <input id="claim-name" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Mobile Number</label>
+                  <input id="claim-mobile" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                  <label>District & State</label>
+                  <input id="claim-district" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Aadhaar / Policy Reference</label>
+                  <input class="form-input" value="XXXX-XXXX-4912 (Linked)" readonly>
+                </div>
+              </div>
+              <button class="btn-auth-primary next-step" style="width:auto; padding:10px 28px;" data-to="2">Next: Crop & Survey Details ➔</button>
+            </div>
+
+            <!-- Step 2: Crop Details -->
+            <div class="wizard-step-panel" id="wstep-2" style="display:none;">
+              <h4 style="margin-bottom:12px;">Step 2: Crop & Survey Particulars</h4>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                  <label>Insured Crop</label>
+                  <select id="claim-crop" class="form-select">
+                    <option value="Soybean">Soybean (सोयाबीन)</option>
+                    <option value="Cotton">Cotton (कपास)</option>
+                    <option value="Wheat">Wheat (गेहूं)</option>
+                    <option value="Rice">Rice (धान / चावल)</option>
+                    <option value="Onion">Onion (प्याज)</option>
+                    <option value="Maize">Maize (मक्का)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Land Survey / Khata No.</label>
+                  <input id="claim-survey" class="form-input" value="84/B" placeholder="e.g. 74/1A">
+                </div>
+                <div class="form-group">
+                  <label>Affected Area (Acres)</label>
+                  <input id="claim-acres" type="number" step="0.5" class="form-input" value="2.5">
+                </div>
+                <div class="form-group">
+                  <label>Sowing Date</label>
+                  <input type="date" class="form-input" value="2026-07-15">
+                </div>
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-nav-action prev-step" data-to="1">← Back</button>
+                <button class="btn-auth-primary next-step" style="width:auto; padding:10px 28px;" data-to="3">Next: Damage Assessment ➔</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Damage Assessment -->
+            <div class="wizard-step-panel" id="wstep-3" style="display:none;">
+              <h4 style="margin-bottom:12px;">Step 3: Loss Reason & Estimated Extent</h4>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                  <label>Cause of Crop Damage</label>
+                  <select id="claim-cause" class="form-select">
+                    <option value="Unseasonal Torrential Rain">Unseasonal Torrential Rain (बेमौसम बारिश)</option>
+                    <option value="Severe Hailstorm">Severe Hailstorm (ओलावृष्टि)</option>
+                    <option value="Inundation / Waterlogging">Waterlogging (जलभराव)</option>
+                    <option value="Drought / Dry Spell">Drought / Dry Spell (सूखा)</option>
+                    <option value="Widespread Pest Attack">Pest Infestation (कीट प्रकोप)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Estimated Crop Loss Percentage (%)</label>
+                  <input id="claim-pct" type="range" min="20" max="100" value="65" class="form-input" style="padding:0;" oninput="document.getElementById('claim-pct-val').textContent = this.value + '%'">
+                  <div style="text-align:right; font-weight:700; color:var(--error);" id="claim-pct-val">65%</div>
+                </div>
+              </div>
+              <div class="demo-box" style="margin-bottom:16px;">
+                <b>⏱️ 72-Hour Intimation Window Checklist:</b>
+                <p style="font-size:0.85rem; margin-top:4px;">Under PMFBY guidelines, intimation within 72 hours of localized calamity guarantees claim processing without penalty. Status: <span style="color:var(--primary); font-weight:700;">Within Window ✅</span></p>
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-nav-action prev-step" data-to="2">← Back</button>
+                <button class="btn-auth-primary next-step" style="width:auto; padding:10px 28px;" data-to="4">Next: Evidence & Photos ➔</button>
+              </div>
+            </div>
+
+            <!-- Step 4: Evidence Upload -->
+            <div class="wizard-step-panel" id="wstep-4" style="display:none;">
+              <h4 style="margin-bottom:12px;">Step 4: Attach Damage Evidence & Land Records</h4>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                <div style="border:2px dashed var(--border); padding:20px; text-align:center; border-radius:8px;">
+                  <div style="font-size:2rem;">📷</div>
+                  <b style="font-size:0.9rem;">Field Damage Photo</b>
+                  <p style="font-size:0.78rem; color:var(--text-muted);">Geo-tagged photo of affected standing crop</p>
+                  <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">field_damage_proof.jpg (Attached)</span>
+                </div>
+                <div style="border:2px dashed var(--border); padding:20px; text-align:center; border-radius:8px;">
+                  <div style="font-size:2rem;">📄</div>
+                  <b style="font-size:0.9rem;">7/12 Land Record / Khasra</b>
+                  <p style="font-size:0.78rem; color:var(--text-muted);">Verified digital land ownership extract</p>
+                  <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">land_record_verified.pdf (Attached)</span>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-nav-action prev-step" data-to="3">← Back</button>
+                <button id="btn-submit-pmfby" class="btn-auth-primary" style="width:auto; padding:10px 28px;">🚀 Submit Claim to National PMFBY Portal</button>
+              </div>
+            </div>
+
+            <!-- Step 5: Submitted Receipt & Tracking -->
+            <div class="wizard-step-panel" id="wstep-5" style="display:none;">
+              <div style="text-align:center; padding:20px 0;">
+                <div style="font-size:3.5rem;">🎉</div>
+                <h4 style="font-size:1.4rem; color:var(--primary);">PMFBY Claim Successfully Registered!</h4>
+                <p style="font-size:0.95rem; color:var(--text-muted); margin-top:6px;">Your intimation has been transmitted to Agricultural Insurance Company (AIC) & District Revenue Officer.</p>
+                
+                <div class="result-card" style="max-width:500px; margin:20px auto; text-align:left;">
+                  <div>Claim Tracking ID: <b id="submitted-claim-id" style="color:var(--accent); font-size:1.1rem;">PMFBY-2026-94821</b></div>
+                  <div style="margin-top:6px;">Estimated Provisional Payout: <b id="submitted-claim-payout" style="color:var(--primary); font-size:1.2rem;">₹58,500</b></div>
+                  <div style="margin-top:6px; font-size:0.85rem; color:var(--text-muted);">Surveyor Visit: Within 10 Days | DBT Credit directly to Bank Account</div>
+                </div>
+
+                <div style="display:flex; justify-content:center; gap:12px;">
+                  <button id="btn-download-claim-receipt" class="btn-auth-primary" style="width:auto; padding:10px 24px;">📥 Download Official PDF Receipt</button>
+                  <button class="btn-nav-action" onclick="document.querySelectorAll('.wizard-step-panel').forEach(p=>p.style.display='none'); document.getElementById('wstep-1').style.display='block';">➕ File Another Claim</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Existing Submitted Claims Table -->
+          <div style="margin-top:30px;">
+            <h4 style="font-size:1.1rem; margin-bottom:12px;">📋 Your Submitted PMFBY Claims History</h4>
+            <div id="claims-history-list" style="font-size:0.9rem; color:var(--text-muted);">Loading claims...</div>
+          </div>
+        </div>
+
+        <!-- 3. 💸 LOAN OPTIMIZER -->
+        <div id="panel-loan" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>💸 <span data-i18n="loan">Kisan Loan Optimizer & Moneylender Protection</span></h3>
+            <span class="badge-severity badge-low">KCC Rate: 4.0% p.a.</span>
+          </div>
+
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:16px;">
+            Compare institutional bank schemes vs informal moneylenders. See how much money you save in interest!
+          </p>
+
+          <div style="background:var(--surface-alt); padding:20px; border-radius:var(--radius-md); margin-bottom:20px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div>
+                <label style="font-weight:700; font-size:0.9rem;">Loan Amount Required: <b id="loan-amount-val" style="color:var(--primary);">₹1,50,000</b></label>
+                <input id="loan-slider-amount" type="range" min="20000" max="1000000" step="10000" value="150000" class="form-input" style="padding:0; margin-top:8px;">
+              </div>
+              <div>
+                <label style="font-weight:700; font-size:0.9rem;">Tenure: <b id="loan-tenure-val" style="color:var(--primary);">2 Years</b></label>
+                <input id="loan-slider-tenure" type="range" min="1" max="5" step="1" value="2" class="form-input" style="padding:0; margin-top:8px;">
+              </div>
+            </div>
+          </div>
+
+          <div id="loan-comparison-cards" style="display:flex; flex-direction:column; gap:14px;"></div>
+        </div>
+
+        <!-- 4. 🏪 MANDI PRICES DISCOVERY -->
+        <div id="panel-mandi" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🏪 <span data-i18n="mandi">Mandi Prices Discovery & Smart Profit Routing</span></h3>
+            <span class="badge-severity badge-medium">APMC Real-Time Rates</span>
+          </div>
+
+          <!-- Crop Filter Pills -->
+          <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:16px;">
+            <button class="tab-pill active mandi-crop-filter" data-crop="Soybean">Soybean (सोयाबीन)</button>
+            <button class="tab-pill mandi-crop-filter" data-crop="Cotton">Cotton (कपास)</button>
+            <button class="tab-pill mandi-crop-filter" data-crop="Wheat">Wheat (गेहूं)</button>
+            <button class="tab-pill mandi-crop-filter" data-crop="Onion">Onion (प्याज)</button>
+          </div>
+
+          <!-- AI Profit Recommendation Box -->
+          <div id="mandi-recommendation-box" class="result-card" style="margin-bottom:20px; border-left-color:var(--secondary);">
+            <div style="display:flex; align-items:center; gap:8px; font-weight:700; color:#B78103; margin-bottom:6px;">
+              <span>💡</span> <h4>AI Profit Opportunity Analysis</h4>
+            </div>
+            <p id="mandi-recommendation-text" style="font-size:0.92rem;"></p>
+          </div>
+
+          <!-- Mandi Rates Table -->
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+              <thead>
+                <tr style="background:var(--surface-alt); text-align:left; border-bottom:2px solid var(--border);">
+                  <th style="padding:10px;">Mandi Name</th>
+                  <th style="padding:10px;">District</th>
+                  <th style="padding:10px;">Distance</th>
+                  <th style="padding:10px;">Modal Rate (₹/Q)</th>
+                  <th style="padding:10px;">Price Range</th>
+                  <th style="padding:10px;">7-Day Trend</th>
+                </tr>
+              </thead>
+              <tbody id="mandi-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. 🌱 PRODUCT VERIFY (FAKE DETECTION) -->
+        <div id="panel-product" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🌱 <span data-i18n="product">Fertilizer & Seed Authenticity Verification</span></h3>
+            <span class="badge-severity badge-high">Stop Counterfeit Inputs</span>
+          </div>
+
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:14px;">
+            Over 25% of chemicals sold in rural retail can be counterfeit. Enter batch details or click demo verification:
+          </p>
+
+          <!-- Quick Test Demo Batches -->
+          <div style="font-size:0.85rem; font-weight:700; margin-bottom:8px;">💡 Test Registered & Fake Batches:</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+            <button class="tab-pill demo-batch-btn" data-batch="BY-9042" data-comp="Bayer" data-prod="Confidor">Bayer Confidor (Genuine ✅)</button>
+            <button class="tab-pill demo-batch-btn" data-batch="IF-1049" data-comp="IFFCO" data-prod="NPK 12:32:16">IFFCO NPK (Genuine ✅)</button>
+            <button class="tab-pill demo-batch-btn" data-batch="FAKE-999" data-comp="Unknown" data-prod="Spurious Monocrotophos">Counterfeit Batch (Fake ❌)</button>
+          </div>
+
+          <form id="product-verify-form" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
+            <div class="form-group">
+              <label>Batch / Lot Number</label>
+              <input id="pv-batch" class="form-input" required placeholder="e.g. BY-9042" value="BY-9042">
+            </div>
+            <div class="form-group">
+              <label>Company / Brand</label>
+              <input id="pv-company" class="form-input" required placeholder="e.g. Bayer" value="Bayer">
+            </div>
+            <div class="form-group">
+              <label>Product Name</label>
+              <input id="pv-prod" class="form-input" placeholder="e.g. Confidor" value="Confidor">
+            </div>
+          </form>
+          <button id="btn-verify-product" class="btn-auth-primary" style="width:auto; padding:10px 24px;">🔍 Check Authenticity</button>
+
+          <!-- Verification Result Box -->
+          <div id="pv-result-box" class="result-card" style="display:none; margin-top:20px;"></div>
+        </div>
+
+        <!-- 6. 🌾 CROP ADVISOR -->
+        <div id="panel-advisor" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🌾 <span data-i18n="advisor">Complete Crop Production Guidance</span></h3>
+            <span class="badge-severity badge-low">ICAR Standard Schedule</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">
+            <div class="form-group">
+              <label>Selected Crop</label>
+              <select id="adv-crop" class="form-select">
+                <option value="Soybean">Soybean (सोयाबीन)</option>
+                <option value="Cotton">Cotton (कपास)</option>
+                <option value="Wheat">Wheat (गेहूं)</option>
+                <option value="Rice">Rice (धान / चावल)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Soil Type</label>
+              <select id="adv-soil" class="form-select">
+                <option value="Black soil (regur)">Black Soil (Regur)</option>
+                <option value="Red soil">Red Soil</option>
+                <option value="Sandy loam">Sandy Loam</option>
+                <option value="Clay loam">Clay Loam</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Land Size (Acres)</label>
+              <input id="adv-acres" type="number" step="0.5" class="form-input" value="3.0">
+            </div>
+          </div>
+          <button id="btn-calc-advisor" class="btn-auth-primary" style="width:auto; padding:10px 24px;">Generate Agronomic Blueprint</button>
+
+          <div id="adv-result-box" style="margin-top:20px;"></div>
+        </div>
+
+        <!-- 7. 🌦️ WEATHER ADVISORY -->
+        <div id="panel-weather" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🌦️ <span data-i18n="weather">Hyperlocal Weather & Severe Farm Alerts</span></h3>
+            <span class="badge-severity badge-medium">Nashik, Maharashtra</span>
+          </div>
+
+          <!-- Severe Alert Banner -->
+          <div class="result-card" style="border-left-color:var(--error); background:var(--error-soft); margin-bottom:20px;">
+            <div style="font-weight:700; color:var(--error); font-size:1.05rem;">⚠️ Heavy Rainfall Warning (> 50mm) Expected Wednesday</div>
+            <p style="font-size:0.88rem; margin-top:4px;">Postpone all foliar pesticide sprays and urea top dressing. Clear drainage trenches to prevent water stagnation around roots.</p>
+          </div>
+
+          <div id="weather-forecast-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;"></div>
+        </div>
+
+        <!-- 8. 🗣️ VOICE DIAGNOSIS -->
+        <div id="panel-voice" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>🗣️ <span data-i18n="voice_diag">Voice Symptom Diagnosis</span></h3>
+            <span class="badge-severity badge-low">Speech to Agricultural Solution</span>
+          </div>
+
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:20px;">
+            Speak symptoms in your mother tongue (Hindi, Marathi, Punjabi, Tamil, etc.). AI listens and speaks back!
+          </p>
+
+          <div style="text-align:center; padding:30px; background:var(--surface-alt); border-radius:var(--radius-md); border:1px solid var(--border);">
+            <button id="btn-voice-record-big" style="width:80px; height:80px; border-radius:50%; background:var(--primary); color:#fff; border:none; font-size:2.4rem; cursor:pointer; box-shadow:0 8px 24px var(--primary-glow);">
+              🎤
+            </button>
+            <div id="voice-record-status" style="margin-top:14px; font-weight:700; color:var(--text-main);">Click microphone to speak symptoms...</div>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">Try saying: "Pattiya peeli pad rahi hain aur safed makhi dikh rahi hai"</p>
+          </div>
+
+          <div id="voice-diag-output" class="result-card" style="display:none; margin-top:20px;"></div>
+        </div>
+
+        <!-- 9. 😔 MIND MITRA (MENTAL HEALTH & COUNSELING) -->
+        <div id="panel-mind" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>😔 <span data-i18n="mind">Mind Mitra - Farmer Mental Health & Support</span></h3>
+            <span class="badge-severity badge-low">Compassionate Care</span>
+          </div>
+
+          <p style="font-size:0.95rem; margin-bottom:16px;">
+            Namaste <b class="user-name-inline">Kisan Mitra</b>. Farming is hard work with weather and financial stress. How are you feeling today?
+          </p>
+
+          <!-- Mood Selector Buttons -->
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;">
+            <button class="tab-pill mood-btn" data-mood="Happy" data-score="8">😊 Happy</button>
+            <button class="tab-pill mood-btn" data-mood="Okay" data-score="6">😐 Okay</button>
+            <button class="tab-pill mood-btn" data-mood="Sad" data-score="4">😔 Sad</button>
+            <button class="tab-pill mood-btn" data-mood="Anxious" data-score="3">😰 Anxious</button>
+            <button class="tab-pill mood-btn" data-mood="Stressed" data-score="2">😫 Stressed</button>
+            <button class="tab-pill mood-btn" data-mood="Overwhelmed" data-score="1">💔 Overwhelmed</button>
+          </div>
+
+          <!-- Emergency Helplines (24/7 Free) -->
+          <div class="result-card" style="border-left-color:var(--primary); margin-bottom:20px;">
+            <h4 style="color:var(--primary-dark); margin-bottom:8px;">📞 24/7 Free Toll-Free Support Helplines</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.88rem;">
+              <div>• <b>Kisan Welfare Helpline:</b> <a href="tel:18001801551" style="font-weight:700;">1800-180-1551</a> (All India Free)</div>
+              <div>• <b>Tele-MANAS Counseling:</b> <a href="tel:14416" style="font-weight:700;">14416</a> (24/7 Mental Health)</div>
+              <div>• <b>iCall Support:</b> <a href="tel:02225521111" style="font-weight:700;">022-25521111</a> (Counselors)</div>
+              <div>• <b>AASRA Crisis Line:</b> <a href="tel:9820466726" style="font-weight:700;">9820466726</a> (24/7 Emergency)</div>
+            </div>
+          </div>
+
+          <!-- Peer Farmer Overcoming Stories -->
+          <div style="background:var(--lime-soft); padding:16px; border-radius:var(--radius-md); border:1px solid var(--lime-border);">
+            <h4 style="color:var(--primary-dark); margin-bottom:6px;">👥 Peer Farmer Resilience Network:</h4>
+            <p style="font-size:0.88rem; font-style:italic;">
+              "Bhausaheb Patil from Nashik overcame ₹3.5 Lakh debt after hail damage by restructuring his KCC loan and receiving PMFBY claim payout within 30 days. You are not alone!"
+            </p>
+          </div>
+        </div>
+
+        <!-- 10. 👤 PROFILE & FARM SETUP -->
+        <div id="panel-profile" class="feature-view-card" style="display:none;">
+          <div class="feature-header">
+            <h3>👤 <span data-i18n="profile">Farmer & Land Holdings Profile</span></h3>
+          </div>
+
+          <form id="pf">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label data-i18n="name">Full Name</label>
+                <input name="name" class="form-input" required maxlength="60">
+              </div>
+              <div class="form-group">
+                <label data-i18n="mobile">Mobile Number</label>
+                <input id="profile-mobile" class="form-input" readonly>
+              </div>
+              <div class="form-group">
+                <label data-i18n="village">Village / Town</label>
+                <input name="village" class="form-input" maxlength="60">
+              </div>
+              <div class="form-group">
+                <label data-i18n="district">District</label>
+                <input name="district" class="form-input" maxlength="60">
+              </div>
+              <div class="form-group">
+                <label data-i18n="state">State</label>
+                <input name="state" class="form-input" maxlength="60">
+              </div>
+              <div class="form-group">
+                <label data-i18n="land">Total Land (Acres)</label>
+                <input name="land" type="number" step="0.1" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:10px;">
+              <label data-i18n="crops">Cultivated Crops</label>
+              <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+                <label><input type="checkbox" name="crops" value="soybean"> Soybean</label>
+                <label><input type="checkbox" name="crops" value="cotton"> Cotton</label>
+                <label><input type="checkbox" name="crops" value="wheat"> Wheat</label>
+                <label><input type="checkbox" name="crops" value="rice"> Rice</label>
+                <label><input type="checkbox" name="crops" value="onion"> Onion</label>
+                <label><input type="checkbox" name="crops" value="vegetables"> Vegetables</label>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:10px;">
+              <label data-i18n="pin">Change PIN (Leave blank to keep current)</label>
+              <input name="pin" type="password" class="form-input" placeholder="New 4-6 digit PIN">
+            </div>
+
+            <div style="display:flex; gap:12px; margin-top:16px;">
+              <button type="submit" class="btn-auth-primary" style="width:auto; padding:10px 28px;">💾 Save Changes</button>
+              <button type="button" id="btn-del-account" class="btn-nav-action" style="color:var(--error); border-color:var(--error);">Delete Account</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- ================= IMAGE 2 LOWER SHOWCASE SECTIONS ================= -->
+        <!-- Our Services Section (Matching Image 2) -->
+        <section class="services-section">
+          <h3 class="section-headline">Our <span>Services</span></h3>
+          <div class="services-grid">
+            <div class="service-box" onclick="document.querySelector('[data-tab=disease]').click()">
+              <div class="service-icon">📸</div>
+              <div class="service-title">Crop Exploration & Diagnosis</div>
+              <div class="service-desc">Identify foliar pathogens and get instant organic & chemical recipes.</div>
+            </div>
+            <div class="service-box" onclick="document.querySelector('[data-tab=advisor]').click()">
+              <div class="service-icon">🌾</div>
+              <div class="service-title">Harvesting & Nutrition Advisory</div>
+              <div class="service-desc">Customized NPK schedules, drip irrigation timings, and yield boosts.</div>
+            </div>
+            <div class="service-box" onclick="document.querySelector('[data-tab=mandi]').click()">
+              <div class="service-icon">🏪</div>
+              <div class="service-title">Supply Chain & Mandi Rates</div>
+              <div class="service-desc">Direct fair price discovery across 10 APMC mandis to eliminate middlemen.</div>
+            </div>
+            <div class="service-box" onclick="document.querySelector('[data-tab=product]').click()">
+              <div class="service-icon">🌱</div>
+              <div class="service-title">Agricultural Product Verification</div>
+              <div class="service-desc">Verify authentic fertilizer and pesticide batches from licensed dealers.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Solutions for Agriculture (Matching Image 2 Middle) -->
+        <div style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px;">
+          <h3 class="section-headline">Solutions for <span>Agriculture</span></h3>
+          <div style="display:grid; grid-template-columns:1fr 180px; gap:20px; align-items:center;">
+            <div>
+              <h4 style="font-size:1.15rem; margin-bottom:8px;">Precision Farming Methods</h4>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+                Precision farming, also known as precision agriculture, involves the use of AI technology to optimize crop productivity and sustainability. By analyzing leaf textures, soil moisture thresholds, and hyper-local forecasts, farmers save up to 40% in input expenses.
+              </p>
+            </div>
+            <div style="text-align:center; background:var(--lime-soft); padding:20px; border-radius:var(--radius-md); border:1px solid var(--lime-border);">
+              <div style="font-size:2.2rem; font-weight:800; color:var(--primary); font-family:var(--font-heading);">+40%</div>
+              <div style="font-size:0.82rem; font-weight:600; color:var(--text-main);">Average Net Profit Increase</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impact Bar (Matching Image 2) -->
+        <div class="impact-bar">
+          <div class="impact-item">
+            <b>2.8M</b>
+            <span>Protected Farm Acres</span>
+          </div>
+          <div class="impact-item">
+            <b>3.2M</b>
+            <span>Diagnostic Advisories Delivered</span>
+          </div>
+          <div class="impact-item">
+            <b>₹75M</b>
+            <span>Prevented Losses & Debt</span>
+          </div>
+          <div class="impact-item">
+            <b>9+</b>
+            <span>Indian Languages Supported</span>
+          </div>
+        </div>
+
+        <!-- What Our Farmers Say (Matching Image 2 Testimonials) -->
+        <section class="testimonials-section">
+          <h3 class="section-headline">What Our <span>Farmers Say</span></h3>
+          <div class="testimonial-card">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80" alt="Farmer Ramesh">
+            <div>
+              <p class="testimonial-quote">
+                "KrishiSaathi AI saved my 4-acre soybean crop when yellow mosaic struck. The diagnosis took 30 seconds, told me the exact chemical to spray, and helped me file the PMFBY claim in 5 minutes without any middlemen taking a cut."
+              </p>
+              <div class="testimonial-author">— Ramesh Patil, Dindori (Nashik, Maharashtra)</div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- RIGHT CHATBOT SIDEBAR (34% - ALWAYS ACCESSIBLE) -->
+      <aside class="chatbot-sidebar">
+        <div class="chatbot-header">
+          <div class="chatbot-title">
+            <span>💬</span> <span>KrishiSaathi AI Assistant</span>
+          </div>
+          <div class="chatbot-header-actions">
+            <button id="btn-new-chat" class="btn-chat-action">➕ New</button>
+            <button id="btn-toggle-hist" class="btn-chat-action">🕘 History</button>
+          </div>
+        </div>
+
+        <!-- History Drawer -->
+        <div id="chat-hist-drawer" class="chat-history-drawer" style="display:none;"></div>
+
+        <!-- Message Stream -->
+        <div id="msgs" class="chat-messages" aria-live="polite"></div>
+
+        <!-- AI Suggestion Chips (Prompt requirement) -->
+        <div class="ai-suggestions-box">
+          <div class="suggestions-title">💡 Smart Suggestions (Quick Actions):</div>
+          <div class="chips-wrapper" id="chat-chips-container">
+            <button class="chip-btn" data-query="Check soybean disease">📸 Check soybean disease</button>
+            <button class="chip-btn" data-query="File PMFBY claim">🏥 File PMFBY claim</button>
+            <button class="chip-btn" data-query="Find cheapest loan">💸 Find cheapest loan</button>
+            <button class="chip-btn" data-query="Check today's mandi prices">🏪 Mandi prices</button>
+            <button class="chip-btn" data-query="Need fertilizer advice">🌾 Fertilizer advice</button>
+            <button class="chip-btn" data-query="Feeling very stressed">😔 Feeling very stressed</button>
+            <button class="chip-btn" data-query="Talk in voice mode">🗣️ Voice diagnosis</button>
+          </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="cf" class="chat-input-form">
+          <input id="ci" class="chat-input-box" required maxlength="1000" placeholder="Type or speak in your language..." autocomplete="off">
+          <button type="button" id="btn-chat-mic" class="btn-mic" title="Voice Input">🎤</button>
+          <button type="submit" class="btn-chat-send" title="Send">➤</button>
+        </form>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- Farm Onboarding Modal -->
+  <div id="farm-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <h3 style="margin-bottom:12px; color:var(--primary);">🌾 Tell Us About Your Farm</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">This allows KrishiSaathi AI to provide precision fertilizer doses, weather warnings, and auto-filled insurance forms.</p>
+      
+      <div class="form-group">
+        <label>Total Land (Acres)</label>
+        <input id="modal-land" type="number" step="0.5" class="form-input" value="3.5">
+      </div>
+      <div class="form-group">
+        <label>Main Crops</label>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+          <label><input type="checkbox" name="mcrops" value="soybean" checked> Soybean</label>
+          <label><input type="checkbox" name="mcrops" value="cotton"> Cotton</label>
+          <label><input type="checkbox" name="mcrops" value="wheat" checked> Wheat</label>
+          <label><input type="checkbox" name="mcrops" value="rice"> Rice</label>
+          <label><input type="checkbox" name="mcrops" value="vegetables"> Vegetables</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Irrigation Source</label>
+        <select id="modal-irrigation" class="form-select">
+          <option value="Drip irrigation & Well">Drip irrigation & Well</option>
+          <option value="Borewell">Borewell</option>
+          <option value="Rain-fed (only monsoon)">Rain-fed (only rainfall)</option>
+          <option value="Canal">Canal</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Soil Type</label>
+        <select id="modal-soil" class="form-select">
+          <option value="Black soil (regur)">Black soil (regur)</option>
+          <option value="Red soil">Red soil</option>
+          <option value="Sandy loam">Sandy loam</option>
+        </select>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button id="btn-skip-farm" class="btn-nav-action">Skip for Now</button>
+        <button id="btn-save-farm" class="btn-auth-primary" style="width:auto; padding:10px 24px;">💾 Save & Enter Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
